@@ -1,0 +1,20 @@
+﻿@inherits LayoutComponentBase
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="top-row px-4">
+            @{
+                string AddUrl = "addOrEdit";
+            }
+            <button class="btn btn-primary" @onclick="()=>NavManager.NavigateTo(AddUrl)">Add Profile</button>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>

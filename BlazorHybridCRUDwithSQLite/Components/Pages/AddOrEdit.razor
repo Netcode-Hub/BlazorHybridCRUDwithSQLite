@@ -1,0 +1,33 @@
+﻿@page "/addOrEdit/{id:int}"
+@page "/addOrEdit"
+
+<EditForm Model="Profile" OnValidSubmit="SaveChanges">
+    <label class="form-label">User Name</label>
+    <InputText class="form-control mb-2" @bind-Value="Profile.Name" />
+
+    <label class="form-label">User Email</label>
+    <InputText class="form-control" @bind-Value="Profile.Email" />
+
+    <button class="btn btn-primary" type="submit">Save Profile</button>
+</EditForm>
+
+
+@code {
+    [Parameter] public int Id { get; set; } = 0;
+    UserProfile Profile = new();
+
+    protected override void OnParametersSet()
+    {
+        if (Id != 0)
+            Profile = userProfile.GetProfile(Id);
+    }
+    void SaveChanges()
+    {
+        if (Id != 0)
+            userProfile.UpdateProfile(Profile);
+        else
+            userProfile.AddProfile(Profile);
+
+            NavManager.NavigateTo("/");
+    }
+}
